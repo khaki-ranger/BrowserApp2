@@ -28,6 +28,15 @@ class ViewController: UIViewController {
         let urlString = "https://dotinstall.com"
 //        let urlString = ""
         self.loadUrl(urlString: urlString)
+        self.addBoader()
+    }
+    
+    // webView の上に線を表示
+    func addBoader() {
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(x: 0.0, y: 0.0, width: self.browserWebView.frame.size.width, height: 1.0)
+        topBorder.backgroundColor = UIColor.lightGray.cgColor
+        self.browserWebView.layer.addSublayer(topBorder)
     }
     
     // アラートを表示
