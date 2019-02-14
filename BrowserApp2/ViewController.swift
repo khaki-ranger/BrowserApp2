@@ -26,15 +26,19 @@ class ViewController: UIViewController, UIWebViewDelegate {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    // サイトのロード中の処理
     func webViewDidStartLoad(_ webView: UIWebView) {
         self.browserActivityIndicatorView.startAnimating()
     }
     
+    // サイトのロードが完了した後の処理
     func webViewDidFinishLoad(_ webView: UIWebView) {
         if let urlString = self.browserWebView.request?.url?.absoluteString {
             self.urlTextField.text = urlString
         }
         self.browserActivityIndicatorView.stopAnimating()
+        self.backButton.isEnabled = self.browserWebView.canGoBack
+        self.forwardButton.isEnabled = self.browserWebView.canGoForward
     }
     
     // View が表示された後の処理
@@ -86,10 +90,13 @@ class ViewController: UIViewController, UIWebViewDelegate {
     }
 
     @IBAction func goBack(_ sender: Any) {
+        self.browserWebView.goBack()
     }
     @IBAction func goForward(_ sender: Any) {
+        self.browserWebView.goForward()
     }
     @IBAction func reload(_ sender: Any) {
+        self.browserWebView.reload()
     }
     
 }
