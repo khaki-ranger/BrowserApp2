@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIWebViewDelegate {
 
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var browserWebView: UIWebView!
@@ -18,7 +18,16 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.browserWebView.delegate = self
+        
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        if let urlString = self.browserWebView.request?.url?.absoluteString {
+            self.urlTextField.text = urlString
+        }
     }
     
     // View が表示された後の処理
