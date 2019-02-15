@@ -27,7 +27,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UITextFieldDelegate {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    // テキストフィールドにフォーカスしてリターンキーが押されたときの処理
+    // テキストフィールドにフォーカスしてリターンキーが押された時の処理
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField != self.urlTextField {
             return true
@@ -36,6 +36,14 @@ class ViewController: UIViewController, UIWebViewDelegate, UITextFieldDelegate {
             self.loadUrl(urlString: urlString)
         }
         return true
+    }
+    
+    // テキストフィールドがタップされた時の処理
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField != self.urlTextField {
+            return
+        }
+        textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
     }
     
     // サイトのロード中の処理
