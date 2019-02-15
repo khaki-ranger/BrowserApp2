@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIWebViewDelegate {
+class ViewController: UIViewController, UIWebViewDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var browserWebView: UIWebView!
@@ -21,9 +21,21 @@ class ViewController: UIViewController, UIWebViewDelegate {
         super.viewDidLoad()
         
         self.browserWebView.delegate = self
+        self.urlTextField.delegate = self
         self.browserActivityIndicatorView.hidesWhenStopped = true
         
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    // テキストフィールドにフォーカスしてリターンキーが押されたときの処理
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField != self.urlTextField {
+            return true
+        }
+        if let urlString = textField.text {
+            self.loadUrl(urlString: urlString)
+        }
+        return true
     }
     
     // サイトのロード中の処理
