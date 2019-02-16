@@ -87,6 +87,16 @@ class ViewController: UIViewController, UIWebViewDelegate, UITextFieldDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    // ネットワークエラーが発生した時の処理
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        if (error as! URLError).code == URLError.cancelled {
+            return
+        }
+        self.showAlert("Network Error")
+        self.browserWebView.stopLoading()
+        self.browserActivityIndicatorView.stopAnimating()
+    }
+    
     // urlString が正しい値かどうかチェック
     func getValidatedUrl(urlString: String) -> URL? {
         let trimmed = urlString.trimmingCharacters(in: NSCharacterSet.whitespaces)
