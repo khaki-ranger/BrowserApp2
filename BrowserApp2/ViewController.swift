@@ -89,11 +89,12 @@ class ViewController: UIViewController, UIWebViewDelegate, UITextFieldDelegate {
     
     // urlString が正しい値かどうかチェック
     func getValidatedUrl(urlString: String) -> URL? {
-        if URL(string: urlString) == nil {
+        let trimmed = urlString.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        if URL(string: trimmed) == nil {
             showAlert("Invalid URL")
             return nil
         }
-        return URL(string: appendScheme(urlString))
+        return URL(string: self.appendScheme(trimmed))
     }
     
     // http などのスキームが入力されているかどうかチェックする
