@@ -93,7 +93,15 @@ class ViewController: UIViewController, UIWebViewDelegate, UITextFieldDelegate {
             showAlert("Invalid URL")
             return nil
         }
-        return URL(string: urlString)
+        return URL(string: appendScheme(urlString))
+    }
+    
+    // http などのスキームが入力されているかどうかチェックする
+    func appendScheme(_ urlString: String) -> String {
+        if URL(string: urlString)?.scheme == nil {
+            return "http://" + urlString
+        }
+        return urlString
     }
     
     // webView にサイトを表示
